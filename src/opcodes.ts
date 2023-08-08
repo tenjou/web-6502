@@ -1,16 +1,9 @@
-export interface OpCode {
-    name: string
-}
+export const OpCodes = {
+    BRK: 0x00,
+    ADC: 0x69,
+    LDA: 0xa9,
+    TAX: 0xaa,
+    INX: 0xe8,
+} as const
 
-const createOpCode = (name: string): OpCode => {
-    return {
-        name,
-    }
-}
-
-export const OpCode: Record<string, OpCode> = {
-    LDA: createOpCode("LDA"),
-    TAX: createOpCode("TAX"),
-    ADC: createOpCode("ADC"),
-    BRK: createOpCode("BRK"),
-}
+export type OpCodeType = keyof typeof OpCodes

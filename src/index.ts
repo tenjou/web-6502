@@ -1,17 +1,10 @@
-type OpCodeType = "BRK" | "ADC" | "LDA" | "TAX" | "INX"
+import { run } from "./cpu"
+import { OpCodeType, OpCodes } from "./opcodes"
 
 interface AstInstruction {
     opcode: OpCodeType
     value: string
 }
-
-const OpCodes: Record<OpCodeType, number> = {
-    BRK: 0x00,
-    ADC: 0x69,
-    LDA: 0xa9,
-    TAX: 0xaa,
-    INX: 0xe8,
-} as const
 
 const parse = (): AstInstruction[] => {
     return [
@@ -89,15 +82,18 @@ const disassemble = (program: Uint8Array) => {
     return buffer
 }
 
-const run = () => {
+const start = () => {
     const ast = parse()
     const program = compile(ast)
-    const dump = disassemble(program)
+    const cpu = run(program)
 
-    console.log(dump)
+    console.log(cpu)
+
+    // const dump = disassemble(program)
+    // console.log(dump)
 }
 
-run()
+start()
 
 // import { parse } from "./parser/parser"
 
