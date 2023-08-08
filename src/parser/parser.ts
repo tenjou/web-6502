@@ -1,15 +1,27 @@
+import { OpCode } from "../opcodes"
 import * as Node from "./node"
 import { Context } from "./parser-types"
 import { nextToken } from "./tokenizer"
 import { Kinds } from "./tokens"
 
 const parseStatement = (ctx: Context): Node.Statement => {
+    const opcode = OpCode[ctx.value]
+    if (opcode) {
+        return parseInstruction(ctx, opcode)
+    }
+
+    throw new Error("not-opcode")
+}
+
+const parseInstruction = (ctx: Context, opcode: OpCode): Node.Instruction => {
     const start = ctx.start
 
     return {
-        kind: "statement",
+        kind: "instruction",
         start,
         end: ctx.pos,
+        opcode: "",
+        value: "",
     }
 }
 
@@ -20,6 +32,8 @@ const parseTopLevel = (ctx: Context): Node.Program => {
     while (ctx.kind !== Kinds.eof) {
         const statement = parseStatement(ctx)
         body.push(statement)
+
+        nextToken(ctx)
     }
 
     return {
@@ -35,6 +49,7 @@ export const parse = (input: string) => {
         input,
         pos: 0,
         start: 0,
+        value: "",
         kind: Kinds.eof,
     }
 

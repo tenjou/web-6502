@@ -1,4 +1,4 @@
-export type TokenType = "eof"
+export type TokenType = "eof" | "name" | "const"
 
 export interface Token {
     name: TokenType
@@ -12,4 +12,6 @@ const createToken = (name: TokenType): Token => {
 
 export const Kinds: Record<TokenType, Token> = {
     eof: createToken("eof"),
+    name: createToken("name"),
+    const: createToken("const"),
 }
