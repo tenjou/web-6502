@@ -1,6 +1,6 @@
 import { OpCodes } from "./opcodes"
 
-interface Cpu {
+export interface Cpu {
     a: number
     x: number
     y: number

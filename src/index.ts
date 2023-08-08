@@ -1,4 +1,4 @@
-import { run } from "./cpu"
+import { Cpu, run } from "./cpu"
 import { OpCodeType, OpCodes } from "./opcodes"
 
 interface AstInstruction {
@@ -82,10 +82,19 @@ const disassemble = (program: Uint8Array) => {
     return buffer
 }
 
+const updateDebugger = (cpu: Cpu) => {
+    const registers = document.getElementById("registers")
+    if (registers) {
+        registers.innerHTML = `<b>A</b>=$${cpu.a.toString(16)} <b>X</b>=$${cpu.x.toString(16)} <b>Y</b>=$${cpu.y.toString(16)}`
+    }
+}
+
 const start = () => {
     const ast = parse()
     const program = compile(ast)
     const cpu = run(program)
+
+    updateDebugger(cpu)
 
     console.log(cpu)
 
@@ -93,7 +102,9 @@ const start = () => {
     // console.log(dump)
 }
 
-start()
+document.body.onload = () => {
+    start()
+}
 
 // import { parse } from "./parser/parser"
 
