@@ -1,0 +1,5 @@
+.parcel-cache
+.wip
+node_modules/*
+dist/*
+!dist/asm/

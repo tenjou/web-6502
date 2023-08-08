@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "strict": true,
+        "module": "es2022",
+        "noFallthroughCasesInSwitch": true,
+        "noEmit": true,
+        "target": "esnext",
+        "lib": ["dom", "ES2017", "dom.iterable"]
+    },
+    "include": ["src", ".wip/instructions_.ts", ".wip/test.ts", ".wip/cpu.ts"]
+}
